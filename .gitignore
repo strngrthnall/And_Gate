@@ -1,0 +1,19 @@
+# Build artifacts
+build/
+dist/
+*.so
+*.dylib
+*.dll
+
+# Rust build directory
+rust-dsp/target/
+
+# IDE/Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

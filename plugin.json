@@ -1,0 +1,23 @@
+{
+  "slug": "RustedModules",
+  "name": "Rusted Modules",
+  "version": "2.0.0",
+  "license": "CC0",
+  "brand": "RustedLogic",
+  "author": "Marcos Vinicius Ribeiro de Miranda",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "AndGate",
+      "name": "Rust AND Gate",
+      "description": "Porta lógica controlada por Rust",
+      "tags": ["Logic"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[package]
+name = "dsp_core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "dsp_core"
+crate-type = ["staticlib"]
