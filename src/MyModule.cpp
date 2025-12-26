@@ -1,9 +1,13 @@
 #include "plugin.hpp"
 
+struct GateState {
+    bool is_active;
+};
+
 // --- DECLARAÇÃO FFI ---
 // Diz ao C++ que esta função existe em algum lugar (na nossa lib Rust)
 extern "C" {
-    float process_and_gate(float input_a, float input_b);
+    float process_schmitt_and(float input_a, float input_b, GateState* state_a, GateState* state_b);
 }
 // ----------------------
 
@@ -20,6 +24,9 @@ struct AndGateModule : Module {
     };
     enum LightId { NUM_LIGHTS };
 
+    GateState stateA = {false};
+    GateState stateB = {false};
+
     AndGateModule() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
         configInput(INPUT_A, "Entrada A");
@@ -28,15 +35,12 @@ struct AndGateModule : Module {
     }
 
     void process(const ProcessArgs& args) override {
-        // 1. Obter Voltagens do C++
-        // Se a entrada não estiver conectada, getVoltage() retorna 0.0f
         float in_a = inputs[INPUT_A].getVoltage();
         float in_b = inputs[INPUT_B].getVoltage();
 
-        // 2. Chamar o Rust para processar a lógica
-        float out_val = process_and_gate(in_a, in_b);
+        // Passamos o endereço de memória (&) das nossas variáveis de estado para o Rust alterar
+        float out_val = process_schmitt_and(in_a, in_b, &stateA, &stateB);
 
-        // 3. Escrever o resultado de volta no C++
         outputs[OUTPUT_RESULT].setVoltage(out_val);
     }
 };
